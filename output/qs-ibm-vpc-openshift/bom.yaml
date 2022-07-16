@@ -1,0 +1,89 @@
+apiVersion: cloud.ibm.com/v1alpha1
+kind: BillOfMaterial
+metadata:
+  name: qs-ibm-vpc-openshift
+  labels:
+    type: infrastructure
+    platform: ibm
+    code: '105'
+  annotations:
+    displayName: IBM VPC OpenShift
+    description: IBM VPC and public Red Hat OpenShift server
+spec:
+  modules:
+    - name: ibm-resource-group
+      alias: resource_group
+      version: v3.3.1
+    - name: ibm-activity-tracker
+      alias: ibm-activity-tracker
+      version: v2.4.16
+    - name: ibm-cloud-monitoring
+      alias: sysdig
+      version: v4.1.2
+    - name: ibm-cloud-monitoring-bind
+      alias: sysdig-bind
+      version: v1.3.4
+    - name: ibm-log-analysis
+      alias: logdna
+      version: v4.1.2
+    - name: ibm-log-analysis-bind
+      alias: ibm-logdna-bind
+      version: v1.3.5
+    - name: ibm-vpc
+      alias: ibm-vpc
+      version: v1.16.0
+    - name: ibm-vpc-gateways
+      alias: ibm-vpc-gateways
+      version: v1.9.0
+    - name: ibm-vpc-subnets
+      alias: cluster_subnets
+      version: v1.13.2
+      default: true
+    - name: ibm-ocp-vpc
+      alias: cluster
+      version: v1.15.6
+      variables:
+        - name: name
+          value: tor-demo
+        - name: worker_count
+          value: 1
+        - name: flavor
+          value: bx2.4x16
+        - name: force_delete_storage
+          value: true
+        - name: ocp_version
+          value: 4.1
+    - name: ibm-object-storage
+      alias: cos
+      version: v4.0.6
+  variables:
+    - name: ibmcloud_api_key
+      type: string
+      description: The IBM Cloud api key
+    - name: resource_group_name
+      type: string
+      description: The name of the resource group
+      defaultValue: timro-rg
+    - name: region
+      type: string
+      defaultValue: ca-tor
+    - name: name_prefix
+      type: string
+      description: >-
+        The prefix name for the service. If not provided it will default to the
+        resource group name
+      defaultValue: tor-bom
+    - name: cluster_subnets__count
+      type: number
+      description: The number of subnets that should be provisioned
+      defaultValue: 3
+    - name: worker_count
+      type: number
+      description: >-
+        The number of worker nodes that should be provisioned for classic
+        infrastructure
+      defaultValue: 1
+    - name: cluster_flavor
+      type: string
+      description: The machine type that will be provisioned for classic infrastructure
+      defaultValue: bx2.4x16
