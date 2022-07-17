@@ -40,7 +40,7 @@ variable "ibm-activity-tracker_sync" {
 variable "name_prefix" {
   type = string
   description = "The prefix name for the service. If not provided it will default to the resource group name"
-  default = "tor-bom"
+  default = "tor-swetest"
 }
 variable "sysdig_plan" {
   type = string
@@ -160,7 +160,7 @@ variable "cluster_subnets_zone_offset" {
 variable "cluster_subnets__count" {
   type = number
   description = "The number of subnets that should be provisioned"
-  default = 3
+  default = 1
 }
 variable "cluster_subnets_label" {
   type = string
@@ -200,7 +200,7 @@ variable "cluster_name" {
 variable "worker_count" {
   type = number
   description = "The number of worker nodes that should be provisioned for classic infrastructure"
-  default = 1
+  default = 2
 }
 variable "cluster_flavor" {
   type = string

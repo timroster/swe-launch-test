@@ -1,11 +1,11 @@
 apiVersion: cloud.ibm.com/v1alpha1
 kind: BillOfMaterial
 metadata:
-  name: qs-ibm-vpc-openshift
+  name: test-ibm-vpc-openshift
   labels:
     type: infrastructure
     platform: ibm
-    code: '105'
+    code: '100'
   annotations:
     displayName: IBM VPC OpenShift
     description: IBM VPC and public Red Hat OpenShift server
@@ -17,18 +17,21 @@ spec:
     - name: ibm-vpc-subnets
       default: true
       alias: cluster_subnets
+      variables:
+        - name: _count
+          value: 1
     - name: ibm-ocp-vpc
       variables:
         - name: name
           value: tor-demo
         - name: worker_count
-          value: 1
+          value: 2
         - name: flavor
           value: bx2.4x16
         - name: force_delete_storage
           value: true
         - name: ocp_version 
-          value: 4.10
+          value: "4.10"
     - name: ibm-log-analysis
     - name: ibm-cloud-monitoring
     - name: ibm-log-analysis-bind
@@ -36,12 +39,10 @@ spec:
     - name: ibm-activity-tracker
   variables:
     - name: name_prefix
-      value: tor-bom
+      value: tor-swetest
     - name: resource_group_name
       value: timro-rg
     - name: region
       value: ca-tor
-    - name: cluster_subnets__count
-      value: 3
     - name: tags
       value: ["owner:timro","swetesting"]
